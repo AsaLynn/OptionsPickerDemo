@@ -10,24 +10,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.contrarywind.interfaces.IPickerViewData;
 import com.zxn.optionspicker.R;
-import com.zxn.optionspicker.config.PickerOptions;
+import com.zxn.optionspicker.config.PickerOption;
 
 import java.util.List;
 
 /**
- * 条件选择器
+ * 条件选择器,IPickerViewData
  * Created by Sai on 15/11/22.
  */
-public class OptionsPickerView<T> extends BasePickerView implements View.OnClickListener {
+public class OptionPicker<T extends IPickerViewData> extends BasePicker implements View.OnClickListener {
 
-    private WheelOptions wheelOptions;
+    private WheelOption wheelOptions;
 
     private static final String TAG_SUBMIT = "submit";
     private static final String TAG_CANCEL = "cancel";
 
 
-    public OptionsPickerView(PickerOptions pickerOptions) {
+    public OptionPicker(PickerOption pickerOptions) {
         super(pickerOptions.context);
         mPickerOptions = pickerOptions;
         initView(pickerOptions.context);
@@ -42,12 +43,12 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
             LayoutInflater.from(context).inflate(mPickerOptions.layoutRes, contentContainer);
 
             //顶部标题
-            TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
-            RelativeLayout rv_top_bar = (RelativeLayout) findViewById(R.id.rv_topbar);
+            TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+            RelativeLayout rv_top_bar = (RelativeLayout) findViewById(R.id.rv_top_bar);
 
             //确定和取消按钮
-            Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
-            Button btnCancel = (Button) findViewById(R.id.btnCancel);
+            Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+            Button btnCancel = (Button) findViewById(R.id.btn_cancel);
 
             btnSubmit.setTag(TAG_SUBMIT);
             btnCancel.setTag(TAG_CANCEL);
@@ -74,10 +75,10 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         }
 
         // ----滚轮布局
-        final LinearLayout optionsPicker = (LinearLayout) findViewById(R.id.optionspicker);
+        final LinearLayout optionsPicker = (LinearLayout) findViewById(R.id.ll_optionspicker);
         optionsPicker.setBackgroundColor(mPickerOptions.bgColorWheel);
 
-        wheelOptions = new WheelOptions(optionsPicker, mPickerOptions.isRestoreItem);
+        wheelOptions = new WheelOption(optionsPicker, mPickerOptions.isRestoreItem);
         if (mPickerOptions.optionsSelectChangeListener != null) {
             wheelOptions.setOptionsSelectChangeListener(mPickerOptions.optionsSelectChangeListener);
         }
@@ -104,7 +105,7 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
      * @param text 标题文本内容
      */
     public void setTitleText(String text) {
-        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
+        TextView tvTitle = (TextView) findViewById(R.id.tv_title);
         if (tvTitle != null) {
             tvTitle.setText(text);
         }

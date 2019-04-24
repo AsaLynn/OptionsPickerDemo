@@ -8,6 +8,6 @@ import android.view.View;
  * 功能：
  */
 
-public interface CustomListener {
+public interface CustomPickerListener {
     void customLayout(View v);
 }

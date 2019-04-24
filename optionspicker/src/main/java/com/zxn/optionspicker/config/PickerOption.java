@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import com.contrarywind.view.WheelView;
 import com.zxn.optionspicker.R;
-import com.zxn.optionspicker.listener.CustomListener;
-import com.zxn.optionspicker.listener.OnOptionsSelectChangeListener;
-import com.zxn.optionspicker.listener.OnOptionsSelectListener;
+import com.zxn.optionspicker.listener.CustomPickerListener;
+import com.zxn.optionspicker.listener.OnOptionSelectChangeListener;
+import com.zxn.optionspicker.listener.OnOptionSelectListener;
 
 import java.util.Calendar;
 
@@ -19,7 +19,7 @@ import java.util.Calendar;
  * Created by xiaosongzeem on 2018/3/8.
  */
 
-public class PickerOptions {
+public class PickerOption {
 
     //constant
     private static final int PICKER_VIEW_BTN_COLOR_NORMAL = 0xFF057dff;
@@ -30,13 +30,13 @@ public class PickerOptions {
     public static final int TYPE_PICKER_OPTIONS = 1;
     public static final int TYPE_PICKER_TIME = 2;
 
-    public OnOptionsSelectListener optionsSelectListener;
+    public OnOptionSelectListener optionsSelectListener;
 //    public OnTimeSelectListener timeSelectListener;
     public View.OnClickListener cancelListener;
 
 //    public OnTimeSelectChangeListener timeSelectChangeListener;
-    public OnOptionsSelectChangeListener optionsSelectChangeListener;
-    public CustomListener customListener;
+    public OnOptionSelectChangeListener optionsSelectChangeListener;
+    public CustomPickerListener customListener;
 
 
     //options picker
@@ -67,9 +67,9 @@ public class PickerOptions {
     public int x_offset_year, x_offset_month, x_offset_day, x_offset_hours, x_offset_minutes, x_offset_seconds;//单位
 
 
-    public PickerOptions(int buildType) {
+    public PickerOption(int buildType) {
         if (buildType == TYPE_PICKER_OPTIONS) {
-            layoutRes = R.layout.pickerview_options;
+            layoutRes = R.layout.layout_picker_view_options;
         } else {
             //layoutRes = R.layout.pickerview_time;
         }

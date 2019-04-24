@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rv_topbar"
+    android:id="@+id/rv_top_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pickerview_bg_topbar">
 
     <Button
-        android:id="@+id/btnCancel"
+        android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
@@ -17,18 +17,18 @@
         android:textSize="@dimen/pickerview_topbar_btn_textsize" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/btnSubmit"
-        android:layout_toRightOf="@+id/btnCancel"
+        android:layout_toLeftOf="@id/btn_submit"
+        android:layout_toRightOf="@id/btn_cancel"
         android:textColor="@color/pickerview_topbar_title"
         android:textSize="@dimen/pickerview_topbar_title_textsize" />
 
     <Button
-        android:id="@id/btnSubmit"
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"

@@ -17,23 +17,23 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 
 import com.zxn.optionspicker.R;
-import com.zxn.optionspicker.config.PickerOptions;
-import com.zxn.optionspicker.listener.OnDismissListener;
-import com.zxn.optionspicker.utils.PickerViewAnimateUtil;
+import com.zxn.optionspicker.config.PickerOption;
+import com.zxn.optionspicker.listener.OnPickerDismissListener;
+import com.zxn.optionspicker.utils.PickerAnimateUtil;
 
 /**
  * Created by Sai on 15/11/22.
  * 精仿iOSPickerViewController控件
  */
-public class BasePickerView {
+public class BasePicker {
 
     private Context context;
     protected ViewGroup contentContainer;
     private ViewGroup rootView;//附加View 的 根View
     private ViewGroup dialogView;//附加Dialog 的 根View
 
-    protected PickerOptions mPickerOptions;
-    private OnDismissListener onDismissListener;
+    protected PickerOption mPickerOptions;
+    private OnPickerDismissListener onDismissListener;
     private boolean dismissing;
 
     private Animation outAnim;
@@ -46,7 +46,7 @@ public class BasePickerView {
     protected View clickView;//是通过哪个View弹出的
     private boolean isAnim = true;
 
-    public BasePickerView(Context context) {
+    public BasePicker(Context context) {
         this.context = context;
     }
 
@@ -59,11 +59,11 @@ public class BasePickerView {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         if (isDialog()) {
             //如果是对话框模式
-            dialogView = (ViewGroup) layoutInflater.inflate(R.layout.layout_basepickerview, null, false);
+            dialogView = (ViewGroup) layoutInflater.inflate(R.layout.layout_base_picker_view, null, false);
             //设置界面的背景为透明
             dialogView.setBackgroundColor(Color.TRANSPARENT);
             //这个是真正要加载选择器的父布局
-            contentContainer = (ViewGroup) dialogView.findViewById(R.id.content_container);
+            contentContainer = (ViewGroup) dialogView.findViewById(R.id.fl_content_container);
             //设置对话框 默认左右间距屏幕30
             params.leftMargin = 30;
             params.rightMargin = 30;
@@ -84,13 +84,13 @@ public class BasePickerView {
                 mPickerOptions.decorView = (ViewGroup) ((Activity) context).getWindow().getDecorView();
             }
             //将控件添加到decorView中
-            rootView = (ViewGroup) layoutInflater.inflate(R.layout.layout_basepickerview, mPickerOptions.decorView, false);
+            rootView = (ViewGroup) layoutInflater.inflate(R.layout.layout_base_picker_view, mPickerOptions.decorView, false);
             rootView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             if (mPickerOptions.outSideColor != -1) {
                 rootView.setBackgroundColor(mPickerOptions.outSideColor);
             }
             //这个是真正要加载时间选取器的父布局
-            contentContainer = (ViewGroup) rootView.findViewById(R.id.content_container);
+            contentContainer = (ViewGroup) rootView.findViewById(R.id.fl_content_container);
             contentContainer.setLayoutParams(params);
         }
         setKeyBackCancelable(true);
@@ -215,7 +215,7 @@ public class BasePickerView {
                 isShowing = false;
                 dismissing = false;
                 if (onDismissListener != null) {
-                    onDismissListener.onDismiss(BasePickerView.this);
+                    onDismissListener.onDismiss(BasePicker.this);
                 }
             }
         });
@@ -224,16 +224,16 @@ public class BasePickerView {
     }
 
     private Animation getInAnimation() {
-        int res = PickerViewAnimateUtil.getAnimationResource(this.animGravity, true);
+        int res = PickerAnimateUtil.getAnimationResource(this.animGravity, true);
         return AnimationUtils.loadAnimation(context, res);
     }
 
     private Animation getOutAnimation() {
-        int res = PickerViewAnimateUtil.getAnimationResource(this.animGravity, false);
+        int res = PickerAnimateUtil.getAnimationResource(this.animGravity, false);
         return AnimationUtils.loadAnimation(context, res);
     }
 
-    public BasePickerView setOnDismissListener(OnDismissListener onDismissListener) {
+    public BasePicker setOnDismissListener(OnPickerDismissListener onDismissListener) {
         this.onDismissListener = onDismissListener;
         return this;
     }
@@ -267,10 +267,10 @@ public class BasePickerView {
         }
     };
 
-    protected BasePickerView setOutSideCancelable(boolean isCancelable) {
+    protected BasePicker setOutSideCancelable(boolean isCancelable) {
 
         if (rootView != null) {
-            View view = rootView.findViewById(R.id.outmost_container);
+            View view = rootView.findViewById(R.id.fl_outmost_container);
 
             if (isCancelable) {
                 view.setOnTouchListener(onCancelableTouchListener);
@@ -325,7 +325,7 @@ public class BasePickerView {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     if (onDismissListener != null) {
-                        onDismissListener.onDismiss(BasePickerView.this);
+                        onDismissListener.onDismiss(BasePicker.this);
                     }
                 }
             });

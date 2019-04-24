@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.zxn.optionspicker.builder.OptionsPickerBuilder;
-import com.zxn.optionspicker.listener.OnOptionsSelectChangeListener;
-import com.zxn.optionspicker.listener.OnOptionsSelectListener;
-import com.zxn.optionspicker.view.OptionsPickerView;
+import com.zxn.optionspicker.builder.OptionPickerBuilder;
+import com.zxn.optionspicker.listener.OnOptionSelectChangeListener;
+import com.zxn.optionspicker.listener.OnOptionSelectListener;
+import com.zxn.optionspicker.view.OptionPicker;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    private OptionsPickerView pvOptions, pvCustomOptions, pvNoLinkOptions;
+    private OptionPicker<ItemInfo> pvOptions;
 
     private ArrayList<String> food = new ArrayList<>();
     private ArrayList<String> clothes = new ArrayList<>();
@@ -31,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         getNoLinkData();
 
-        initNoLinkOptionsPicker();
+//        initNoLinkOptionsPicker();
 
         initOptionsPicker();
     }
 
     private void initOptionsPicker() {
 
-        pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+        pvOptions = new OptionPickerBuilder(this, new OnOptionSelectListener() {
 
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -48,7 +48,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
             }
         }).build();
-        pvOptions.setPicker(food);
+//        pvOptions.setPicker(food);
+        ArrayList<ItemInfo> itemInfos = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            ItemInfo info = new ItemInfo();
+            info.name = "name" + i;
+            itemInfos.add(info);
+        }
+        pvOptions.setPicker(itemInfos);
         pvOptions.setSelectOptions(0);
     }
 
@@ -56,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_no_linkage:
-                pvNoLinkOptions.show();
+//                pvNoLinkOptions.show();
                 break;
             case R.id.btn_options:
                 pvOptions.show();
@@ -64,31 +71,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initNoLinkOptionsPicker() {// 不联动的多级选项
-        pvNoLinkOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-
-                String str = "food:" + food.get(options1)
-                        + "\nclothes:" + clothes.get(options2)
-                        + "\ncomputer:" + computer.get(options3);
-
-                Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
-            }
-        })
-                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
-                    @Override
-                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
-                        String str = "options1: " + options1 + "\noptions2: " + options2 + "\noptions3: " + options3;
-                        Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                // .setSelectOptions(0, 1, 1)
-                .build();
-        pvNoLinkOptions.setNPicker(food, clothes, computer);
-        pvNoLinkOptions.setSelectOptions(0, 1, 1);
-    }
+//    private void initNoLinkOptionsPicker() {// 不联动的多级选项
+//        pvNoLinkOptions = new OptionPickerBuilder(this, new OnOptionSelectListener() {
+//
+//            @Override
+//            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+//
+//                String str = "food:" + food.get(options1)
+//                        + "\nclothes:" + clothes.get(options2)
+//                        + "\ncomputer:" + computer.get(options3);
+//
+//                Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+//            }
+//        })
+//                .setOptionsSelectChangeListener(new OnOptionSelectChangeListener() {
+//                    @Override
+//                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
+//                        String str = "options1: " + options1 + "\noptions2: " + options2 + "\noptions3: " + options3;
+//                        Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                // .setSelectOptions(0, 1, 1)
+//                .build();
+//        pvNoLinkOptions.setNPicker(food, clothes, computer);
+//        pvNoLinkOptions.setSelectOptions(0, 1, 1);
+//    }
 
     private void getNoLinkData() {
         food.add("KFC");

@@ -8,7 +8,7 @@ import com.zxn.optionspicker.R;
 /**
  * Created by Sai on 15/8/9.
  */
-public class PickerViewAnimateUtil {
+public class PickerAnimateUtil {
     private static final int INVALID = -1;
     /**
      * Get default animation resource when not defined by the user

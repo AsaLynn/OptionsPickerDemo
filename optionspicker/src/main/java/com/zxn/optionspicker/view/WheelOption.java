@@ -3,15 +3,16 @@ package com.zxn.optionspicker.view;
 import android.graphics.Typeface;
 import android.view.View;
 
+import com.contrarywind.interfaces.IPickerViewData;
 import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 import com.zxn.optionspicker.R;
-import com.zxn.optionspicker.adapter.ArrayWheelAdapter;
-import com.zxn.optionspicker.listener.OnOptionsSelectChangeListener;
+import com.zxn.optionspicker.adapter.SimpleWheelsAdapter;
+import com.zxn.optionspicker.listener.OnOptionSelectChangeListener;
 
 import java.util.List;
 
-public class WheelOptions<T> {
+public class WheelOption<T extends IPickerViewData> {
     private View view;
     private WheelView wv_option1;
     private WheelView wv_option2;
@@ -26,7 +27,7 @@ public class WheelOptions<T> {
     private OnItemSelectedListener wheelListener_option1;
     private OnItemSelectedListener wheelListener_option2;
 
-    private OnOptionsSelectChangeListener optionsSelectChangeListener;
+    private OnOptionSelectChangeListener optionsSelectChangeListener;
 
     //文字的颜色和分割线的颜色
     private int textColorOut;
@@ -46,13 +47,13 @@ public class WheelOptions<T> {
         this.view = view;
     }
 
-    public WheelOptions(View view, boolean isRestoreItem) {
+    public WheelOption(View view, boolean isRestoreItem) {
         super();
         this.isRestoreItem = isRestoreItem;
         this.view = view;
-        wv_option1 = (WheelView) view.findViewById(R.id.options1);// 初始化时显示的数据
-        wv_option2 = (WheelView) view.findViewById(R.id.options2);
-        wv_option3 = (WheelView) view.findViewById(R.id.options3);
+        wv_option1 = (WheelView) view.findViewById(R.id.wv_options1);// 初始化时显示的数据
+        wv_option2 = (WheelView) view.findViewById(R.id.wv_options2);
+        wv_option3 = (WheelView) view.findViewById(R.id.wv_options3);
     }
 
 
@@ -64,16 +65,16 @@ public class WheelOptions<T> {
         this.mOptions3Items = options3Items;
 
         // 选项1
-        wv_option1.setAdapter(new ArrayWheelAdapter(mOptions1Items));// 设置显示数据
+        wv_option1.setAdapter(new SimpleWheelsAdapter(mOptions1Items));// 设置显示数据
         wv_option1.setCurrentItem(0);// 初始化时显示的数据
         // 选项2
         if (mOptions2Items != null) {
-            wv_option2.setAdapter(new ArrayWheelAdapter(mOptions2Items.get(0)));// 设置显示数据
+            wv_option2.setAdapter(new SimpleWheelsAdapter(mOptions2Items.get(0)));// 设置显示数据
         }
         wv_option2.setCurrentItem(wv_option2.getCurrentItem());// 初始化时显示的数据
         // 选项3
         if (mOptions3Items != null) {
-            wv_option3.setAdapter(new ArrayWheelAdapter(mOptions3Items.get(0).get(0)));// 设置显示数据
+            wv_option3.setAdapter(new SimpleWheelsAdapter(mOptions3Items.get(0).get(0)));// 设置显示数据
         }
         wv_option3.setCurrentItem(wv_option3.getCurrentItem());
         wv_option1.setIsOptions(true);
@@ -107,7 +108,7 @@ public class WheelOptions<T> {
                         //新opt2的位置，判断如果旧位置没有超过数据范围，则沿用旧位置，否则选中最后一项
                         opt2Select = opt2Select >= mOptions2Items.get(index).size() - 1 ? mOptions2Items.get(index).size() - 1 : opt2Select;
                     }
-                    wv_option2.setAdapter(new ArrayWheelAdapter(mOptions2Items.get(index)));
+                    wv_option2.setAdapter(new SimpleWheelsAdapter(mOptions2Items.get(index)));
                     wv_option2.setCurrentItem(opt2Select);
 
                     if (mOptions3Items != null) {
@@ -136,7 +137,7 @@ public class WheelOptions<T> {
                         opt3 = wv_option3.getCurrentItem() >= mOptions3Items.get(opt1Select).get(index).size() - 1 ?
                                 mOptions3Items.get(opt1Select).get(index).size() - 1 : wv_option3.getCurrentItem();
                     }
-                    wv_option3.setAdapter(new ArrayWheelAdapter(mOptions3Items.get(wv_option1.getCurrentItem()).get(index)));
+                    wv_option3.setAdapter(new SimpleWheelsAdapter(mOptions3Items.get(wv_option1.getCurrentItem()).get(index)));
                     wv_option3.setCurrentItem(opt3);
 
                     //3级联动数据实时回调
@@ -173,16 +174,16 @@ public class WheelOptions<T> {
     public void setNPicker(List<T> options1Items, List<T> options2Items, List<T> options3Items) {
 
         // 选项1
-        wv_option1.setAdapter(new ArrayWheelAdapter(options1Items));// 设置显示数据
+        wv_option1.setAdapter(new SimpleWheelsAdapter(options1Items));// 设置显示数据
         wv_option1.setCurrentItem(0);// 初始化时显示的数据
         // 选项2
         if (options2Items != null) {
-            wv_option2.setAdapter(new ArrayWheelAdapter(options2Items));// 设置显示数据
+            wv_option2.setAdapter(new SimpleWheelsAdapter(options2Items));// 设置显示数据
         }
         wv_option2.setCurrentItem(wv_option2.getCurrentItem());// 初始化时显示的数据
         // 选项3
         if (options3Items != null) {
-            wv_option3.setAdapter(new ArrayWheelAdapter(options3Items));// 设置显示数据
+            wv_option3.setAdapter(new SimpleWheelsAdapter(options3Items));// 设置显示数据
         }
         wv_option3.setCurrentItem(wv_option3.getCurrentItem());
         wv_option1.setIsOptions(true);
@@ -365,11 +366,11 @@ public class WheelOptions<T> {
             wv_option1.setCurrentItem(opt1Select);
         }
         if (mOptions2Items != null) {
-            wv_option2.setAdapter(new ArrayWheelAdapter(mOptions2Items.get(opt1Select)));
+            wv_option2.setAdapter(new SimpleWheelsAdapter(mOptions2Items.get(opt1Select)));
             wv_option2.setCurrentItem(opt2Select);
         }
         if (mOptions3Items != null) {
-            wv_option3.setAdapter(new ArrayWheelAdapter(mOptions3Items.get(opt1Select).get(opt2Select)));
+            wv_option3.setAdapter(new SimpleWheelsAdapter(mOptions3Items.get(opt1Select).get(opt2Select)));
             wv_option3.setCurrentItem(opt3Select);
         }
     }
@@ -436,7 +437,7 @@ public class WheelOptions<T> {
         wv_option3.isCenterLabel(isCenterLabel);
     }
 
-    public void setOptionsSelectChangeListener(OnOptionsSelectChangeListener optionsSelectChangeListener) {
+    public void setOptionsSelectChangeListener(OnOptionSelectChangeListener optionsSelectChangeListener) {
         this.optionsSelectChangeListener = optionsSelectChangeListener;
     }
 
