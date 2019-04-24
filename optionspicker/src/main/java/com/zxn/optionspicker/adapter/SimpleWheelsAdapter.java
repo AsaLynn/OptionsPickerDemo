@@ -1,29 +1,19 @@
 package com.zxn.optionspicker.adapter;
 
+
 import com.contrarywind.adapter.WheelAdapter;
 import com.contrarywind.interfaces.IPickerViewData;
 
 import java.util.List;
 
-/**
- * The simple Array wheel adapter
- *
- * @param <T> the element type
- */
 public class SimpleWheelsAdapter<T extends IPickerViewData> implements WheelAdapter {
 
 
-    // items
     private List<T> items;
 
-    /**
-     * Constructor
-     *
-     * @param items the items
-     */
+
     public SimpleWheelsAdapter(List<T> items) {
         this.items = items;
-
     }
 
     @Override
