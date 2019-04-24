@@ -428,7 +428,7 @@ public class WheelOption<T extends IPickerViewData> {
     /**
      * Label 是否只显示中间选中项的
      *
-     * @param isCenterLabel
+     * @param isCenterLabel  isCenterLabel
      */
 
     public void isCenterLabel(boolean isCenterLabel) {

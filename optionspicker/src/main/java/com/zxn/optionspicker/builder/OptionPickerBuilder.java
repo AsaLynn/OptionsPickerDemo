@@ -17,7 +17,6 @@ import com.zxn.optionspicker.view.OptionPicker;
 /**
  * Created by xiaosongzeem on 2018/3/20.
  */
-
 public class OptionPickerBuilder {
 
     //配置类
@@ -68,23 +67,11 @@ public class OptionPickerBuilder {
         return this;
     }
 
-
-    /**
-     * {@link #setOutSideColor} instead.
-     *
-     * @param backgroundId color resId.
-     */
-    @Deprecated
-    public OptionPickerBuilder setBackgroundId(int backgroundId) {
-        mPickerOptions.outSideColor = backgroundId;
-        return this;
-    }
-
     /**
      * 显示时的外部背景色颜色,默认是灰色
      *
      * @param outSideColor color resId.
-     * @return
+     * @return OptionPickerBuilder
      */
     public OptionPickerBuilder setOutSideColor(int outSideColor) {
         mPickerOptions.outSideColor = outSideColor;
@@ -96,7 +83,7 @@ public class OptionPickerBuilder {
      * 设置PickerView的显示容器
      *
      * @param decorView Parent View.
-     * @return
+     * @return OptionPickerBuilder
      */
     public OptionPickerBuilder setDecorView(ViewGroup decorView) {
         mPickerOptions.decorView = decorView;
@@ -154,49 +141,29 @@ public class OptionPickerBuilder {
 
     /**
      * 设置Item 的间距倍数，用于控制 Item 高度间隔
-     *
      * @param lineSpacingMultiplier 浮点型，1.0-4.0f 之间有效,超过则取极值。
+     * @return OptionPickerBuilder
      */
     public OptionPickerBuilder setLineSpacingMultiplier(float lineSpacingMultiplier) {
         mPickerOptions.lineSpacingMultiplier = lineSpacingMultiplier;
         return this;
     }
 
-    /**
-     * Set item divider line type color.
-     *
-     * @param dividerColor color resId.
-     */
     public OptionPickerBuilder setDividerColor(@ColorInt int dividerColor) {
         mPickerOptions.dividerColor = dividerColor;
         return this;
     }
 
-    /**
-     * Set item divider line type.
-     *
-     * @param dividerType enum Type {@link WheelView.DividerType}
-     */
     public OptionPickerBuilder setDividerType(WheelView.DividerType dividerType) {
         mPickerOptions.dividerType = dividerType;
         return this;
     }
 
-    /**
-     * Set the textColor of selected item.
-     *
-     * @param textColorCenter color res.
-     */
     public OptionPickerBuilder setTextColorCenter(int textColorCenter) {
         mPickerOptions.textColorCenter = textColorCenter;
         return this;
     }
 
-    /**
-     * Set the textColor of outside item.
-     *
-     * @param textColorOut color resId.
-     */
     public OptionPickerBuilder setTextColorOut(@ColorInt int textColorOut) {
         mPickerOptions.textColorOut = textColorOut;
         return this;
@@ -257,7 +224,7 @@ public class OptionPickerBuilder {
 
     /**
      * @param listener 切换item项滚动停止时，实时回调监听。
-     * @return
+     * @return OptionPickerBuilder
      */
     public OptionPickerBuilder setOptionsSelectChangeListener(OnOptionSelectChangeListener listener) {
         mPickerOptions.optionsSelectChangeListener = listener;
